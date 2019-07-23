@@ -1,0 +1,465 @@
+--LUA
+ --Script owner - Sanju Baby
+ -- Ver 1.0
+ -- Masking columns based On country specific data
+
+function cm_load()
+Print("  *** CM_LOAD ***")
+src_col = source.column.getname()
+nparm = numparms()
+If ( nparm ~= 1 ) Then
+ process_error("Call to column map procedure must have variable COUNTRY Defined")
+End
+COUNTRY = parms.get(0)
+optim.print("Country Parameter is :  " .. COUNTRY )
+If src_col == "ALIAS_FIRST_NAME" Then
+	msk_prm_AFN = 'PRO=HASH_LOOKUP'
+	msk_prm_AFN = msk_prm_AFN .. ',HASHFLD="SEQ"'
+	msk_prm_AFN = msk_prm_AFN .. ',SOURCE="ALIAS_FIRST_NAME"'
+	msk_prm_AFN = msk_prm_AFN .. ',REPLACE="ALIAS_FIRST_NAME"'
+	If COUNTRY == "CHINA" Then
+		msk_prm_AFN = msk_prm_AFN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_CHINA"'
+	End
+	If COUNTRY == "GERMANY" Then
+		msk_prm_AFN = msk_prm_AFN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_GERMANY"'
+	End
+	If COUNTRY == "JAPAN" Then
+		msk_prm_AFN = msk_prm_AFN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_JAPAN"'
+	End
+	If COUNTRY == "TURKEY" Then
+		msk_prm_AFN = msk_prm_AFN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_TURKEY"'
+	End
+	If COUNTRY == "FRANCE" Then
+		msk_prm_AFN = msk_prm_AFN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_FRANCE"'
+	End
+	If COUNTRY == "OTHERS" Then
+		msk_prm_AFN = msk_prm_AFN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_OTHERS"'
+	End
+	If COUNTRY == "SWEDEN" Then
+		msk_prm_AFN = msk_prm_AFN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_SWEDEN"'
+	End
+	optim.print("Parms Are AFN :  " .. msk_prm_AFN )
+	msk_prm_AFN = msk_prm_AFN .. ',lib=MSS'
+	msk_prm_AFN = msk_prm_AFN .. ',conn=OPTDIRTEST,user=InfoSphereOptimSvc_DEV,pass=YourPassword'
+	msk_prm_AFN = msk_prm_AFN .. ',FLDDEF1=(NAME="ALIAS_FIRST_NAME",DT=wvarchar_sz)'
+	msk_prm_AFN = msk_prm_AFN .. ',FLDDEF2=(NAME="ALIAS_FIRST_NAME",DT=wvarchar_sz)'
+	msk_prm_AFN = msk_prm_AFN .. ',FLDDEF3=(NAME="SEQ",DT=int)'
+	
+End
+If src_col == "ALIAS_LAST_NAME" Then
+	msk_prm_ALN = 'PRO=HASH_LOOKUP'
+	msk_prm_ALN = msk_prm_ALN .. ',HASHFLD="SEQ"'
+	msk_prm_ALN = msk_prm_ALN .. ',SOURCE="ALIAS_LAST_NAME"'
+	msk_prm_ALN = msk_prm_ALN .. ',REPLACE="ALIAS_LAST_NAME"'
+	If COUNTRY == "CHINA" Then
+		msk_prm_ALN = msk_prm_ALN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_CHINA"'
+	End
+	If COUNTRY == "OTHERS" Then
+		msk_prm_ALN = msk_prm_ALN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_OTHERS"'
+	End
+	If COUNTRY == "SWEDEN" Then
+		msk_prm_ALN = msk_prm_ALN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_SWEDEN"'
+	End
+	If COUNTRY == "GERMANY" Then
+		msk_prm_ALN = msk_prm_ALN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_GERMANY"'
+	End
+	If COUNTRY == "TURKEY" Then
+		msk_prm_ALN = msk_prm_ALN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_TURKEY"'
+	End
+	If COUNTRY == "FRANCE" Then
+		msk_prm_ALN = msk_prm_ALN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_FRANCE"'
+	End
+	If COUNTRY == "JAPAN" Then
+		msk_prm_ALN = msk_prm_ALN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_JAPAN"'
+	End
+	optim.print("Parms Are ALN :  " .. msk_prm_ALN )
+	msk_prm_ALN = msk_prm_ALN .. ',lib=MSS'
+	msk_prm_ALN = msk_prm_ALN .. ',conn=OPTDIRTEST,user=InfoSphereOptimSvc_DEV,pass=YourPassword'
+	msk_prm_ALN = msk_prm_ALN .. ',FLDDEF1=(NAME="ALIAS_LAST_NAME",DT=wvarchar_sz)'
+	msk_prm_ALN = msk_prm_ALN .. ',FLDDEF2=(NAME="ALIAS_LAST_NAME",DT=wvarchar_sz)'
+	msk_prm_ALN = msk_prm_ALN .. ',FLDDEF3=(NAME="SEQ",DT=int)' 
+	
+End
+If src_col == "EMAIL_ADDRESS" Then
+	msk_prm_EML = 'PRO=HASH_LOOKUP'
+	msk_prm_EML = msk_prm_EML .. ',HASHFLD="SEQ"'
+	msk_prm_EML = msk_prm_EML .. ',SOURCE="EMAIL_ADDRESS"'
+	msk_prm_EML = msk_prm_EML .. ',REPLACE="EMAIL_ADDRESS"'
+	If COUNTRY == "CHINA" Then
+		msk_prm_EML = msk_prm_EML .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_CHINA"'
+	End
+	If COUNTRY == "GERMANY" Then
+		msk_prm_EML = msk_prm_EML .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_GERMANY"'
+	End
+	If COUNTRY == "JAPAN" Then
+		msk_prm_EML = msk_prm_EML .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_JAPAN"'
+	End
+	If COUNTRY == "TURKEY" Then
+		msk_prm_EML = msk_prm_EML .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_TURKEY"'
+	End
+	If COUNTRY == "FRANCE" Then
+		msk_prm_EML = msk_prm_EML .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_FRANCE"'
+	End
+	If COUNTRY == "OTHERS" Then
+		msk_prm_EML = msk_prm_EML .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_OTHERS"'
+	End
+	If COUNTRY == "SWEDEN" Then
+		msk_prm_EML = msk_prm_EML .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_SWEDEN"'
+	End
+	optim.print("Parms Are EML :  " .. msk_prm_EML )
+	msk_prm_EML = msk_prm_EML .. ',lib=MSS'
+	msk_prm_EML = msk_prm_EML .. ',conn=OPTDIRTEST,user=InfoSphereOptimSvc_DEV,pass=YourPassword'
+	msk_prm_EML = msk_prm_EML .. ',FLDDEF1=(NAME="EMAIL_ADDRESS",DT=wvarchar_sz)'
+	msk_prm_EML = msk_prm_EML .. ',FLDDEF2=(NAME="EMAIL_ADDRESS",DT=wvarchar_sz)'
+	msk_prm_EML = msk_prm_EML .. ',FLDDEF3=(NAME="SEQ",DT=int)'                
+	 
+End
+If src_col == "PHONE_NUMBER" Then
+	msk_prm_PHN = 'PRO=HASH_LOOKUP'
+	msk_prm_PHN = msk_prm_PHN .. ',HASHFLD="SEQ"'
+	msk_prm_PHN = msk_prm_PHN .. ',SOURCE="PHONE_NUMBER"'
+	msk_prm_PHN = msk_prm_PHN .. ',REPLACE="PHONE_NUMBER"'
+	If COUNTRY == "CHINA" Then
+		msk_prm_PHN = msk_prm_PHN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_CHINA"'
+	End
+	If COUNTRY == "GERMANY" Then
+		msk_prm_PHN = msk_prm_PHN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_GERMANY"'
+	End
+	If COUNTRY == "TURKEY" Then
+		msk_prm_PHN = msk_prm_PHN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_TURKEY"'
+	End
+	If COUNTRY == "FRANCE" Then
+		msk_prm_PHN = msk_prm_PHN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_FRANCE"'
+	End
+	If COUNTRY == "JAPAN" Then
+		msk_prm_PHN = msk_prm_PHN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_JAPAN"'
+	End
+	If COUNTRY == "OTHERS" Then
+		msk_prm_PHN = msk_prm_PHN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_OTHERS"'
+	End
+	If COUNTRY == "SWEDEN" Then
+		msk_prm_PHN = msk_prm_PHN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_SWEDEN"'
+	End
+	optim.print("Parms Are PHN :  " .. msk_prm_PHN )
+	msk_prm_PHN = msk_prm_PHN .. ',lib=MSS'
+	msk_prm_PHN = msk_prm_PHN .. ',conn=OPTDIRTEST,user=InfoSphereOptimSvc_DEV,pass=YourPassword'
+	msk_prm_PHN = msk_prm_PHN .. ',FLDDEF1=(NAME="PHONE_NUMBER",DT=wvarchar_sz)'
+	msk_prm_PHN = msk_prm_PHN .. ',FLDDEF2=(NAME="PHONE_NUMBER",DT=wvarchar_sz)'
+	msk_prm_PHN = msk_prm_PHN .. ',FLDDEF3=(NAME="SEQ",DT=int)'
+	
+End
+If src_col == "STAFF_CARD_NO" Then
+	msk_prm_SCN = 'PRO=HASH_LOOKUP'
+	msk_prm_SCN = msk_prm_SCN .. ',HASHFLD="SEQ"'
+	msk_prm_SCN = msk_prm_SCN .. ',SOURCE="STAFF_CARD_NO"'
+	msk_prm_SCN = msk_prm_SCN .. ',REPLACE="STAFF_CARD_NO"'
+	If COUNTRY == "CHINA" Then
+		msk_prm_SCN = msk_prm_SCN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_CHINA"'
+	End
+	If COUNTRY == "GERMANY" Then
+		msk_prm_SCN = msk_prm_SCN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_GERMANY"'
+	End
+	If COUNTRY == "JAPAN" Then
+		msk_prm_SCN = msk_prm_SCN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_JAPAN"'
+	End
+	If COUNTRY == "TURKEY" Then
+		msk_prm_SCN = msk_prm_SCN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_TURKEY"'
+	End
+	If COUNTRY == "FRANCE" Then
+		msk_prm_SCN = msk_prm_SCN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_FRANCE"'
+	End
+	If COUNTRY == "OTHERS" Then
+		msk_prm_SCN = msk_prm_SCN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_OTHERS"'
+	End
+	If COUNTRY == "SWEDEN" Then
+		msk_prm_SCN = msk_prm_SCN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_SWEDEN"'
+	End
+	optim.print("Parms Are SCN :  " .. msk_prm_SCN )
+	msk_prm_SCN = msk_prm_SCN .. ',lib=MSS'
+	msk_prm_SCN = msk_prm_SCN .. ',conn=OPTDIRTEST,user=InfoSphereOptimSvc_DEV,pass=YourPassword'
+	msk_prm_SCN = msk_prm_SCN .. ',FLDDEF1=(NAME="STAFF_CARD_NO",DT=wvarchar_sz)'
+	msk_prm_SCN = msk_prm_SCN .. ',FLDDEF2=(NAME="STAFF_CARD_NO",DT=wvarchar_sz)'
+	msk_prm_SCN = msk_prm_SCN .. ',FLDDEF3=(NAME="SEQ",DT=int)'                
+	 
+End
+
+
+If src_col == "LAST_NAME" Then
+	msk_prm_LN = 'PRO=HASH_LOOKUP'
+	msk_prm_LN = msk_prm_LN .. ',HASHFLD="SEQ"'
+	msk_prm_LN = msk_prm_LN .. ',SOURCE="LAST_NAME"'
+	msk_prm_LN = msk_prm_LN .. ',REPLACE="ALIAS_LAST_NAME"'
+	If COUNTRY == "CHINA" Then
+		msk_prm_LN = msk_prm_LN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_CHINA"'
+	End
+	If COUNTRY == "GERMANY" Then
+		msk_prm_LN = msk_prm_LN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_GERMANY"'
+	End
+	If COUNTRY == "JAPAN" Then
+		msk_prm_LN = msk_prm_LN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_JAPAN"'
+	End
+	If COUNTRY == "TURKEY" Then
+		msk_prm_LN = msk_prm_LN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_TURKEY"'
+	End
+	If COUNTRY == "FRANCE" Then
+		msk_prm_LN = msk_prm_LN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_FRANCE"'
+	End
+	If COUNTRY == "OTHERS" Then
+		msk_prm_LN = msk_prm_LN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_OTHERS"'
+	End
+	If COUNTRY == "SWEDEN" Then
+		msk_prm_LN = msk_prm_LN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_SWEDEN"'
+	End
+	optim.print("Parms Are LN :  " .. msk_prm_LN )
+	msk_prm_LN = msk_prm_LN .. ',lib=MSS'
+	msk_prm_LN = msk_prm_LN .. ',conn=OPTDIRTEST,user=InfoSphereOptimSvc_DEV,pass=YourPassword'
+	msk_prm_LN = msk_prm_LN .. ',FLDDEF1=(NAME="LAST_NAME",DT=wvarchar_sz)'
+	msk_prm_LN = msk_prm_LN .. ',FLDDEF2=(NAME="ALIAS_LAST_NAME",DT=wvarchar_sz)'
+	msk_prm_LN = msk_prm_LN .. ',FLDDEF3=(NAME="SEQ",DT=int)'  
+	               
+End
+If src_col == "STREET_ADDRESS" Then
+	msk_prm_SA = 'PRO=HASH_LOOKUP'
+	msk_prm_SA = msk_prm_SA .. ',HASHFLD="SEQ"'
+	msk_prm_SA = msk_prm_SA .. ',SOURCE="STREET_ADDRESS"'
+	msk_prm_SA = msk_prm_SA .. ',REPLACE="STREET_ADDRESS"'
+	If COUNTRY == "CHINA" Then
+		msk_prm_SA = msk_prm_SA .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_CHINA"'
+	End
+	If COUNTRY == "GERMANY" Then
+		msk_prm_SA = msk_prm_SA .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_GERMANY"'
+	End
+	If COUNTRY == "JAPAN" Then
+		msk_prm_SA = msk_prm_SA .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_JAPAN"'
+	End
+	If COUNTRY == "TURKEY" Then
+		msk_prm_SA = msk_prm_SA .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_TURKEY"'
+	End
+	If COUNTRY == "FRANCE" Then
+		msk_prm_SA = msk_prm_SA .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_FRANCE"'
+	End
+	If COUNTRY == "OTHERS" Then
+		msk_prm_SA = msk_prm_SA .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_OTHERS"'
+	End
+	If COUNTRY == "SWEDEN" Then
+		msk_prm_SA = msk_prm_SA .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_SWEDEN"'
+	End
+	optim.print("Parms Are SA :  " .. msk_prm_SA ) 
+	msk_prm_SA = msk_prm_SA .. ',lib=MSS'
+	msk_prm_SA = msk_prm_SA .. ',conn=OPTDIRTEST,user=InfoSphereOptimSvc_DEV,pass=YourPassword'
+	msk_prm_SA = msk_prm_SA .. ',FLDDEF1=(NAME="STREET_ADDRESS",DT=wvarchar_sz)'
+	msk_prm_SA = msk_prm_SA .. ',FLDDEF2=(NAME="STREET_ADDRESS",DT=wvarchar_sz)'
+	msk_prm_SA = msk_prm_SA .. ',FLDDEF3=(NAME="SEQ",DT=int)'   
+	             
+End
+If src_col == "STREET_NUMBER" Then
+	msk_prm_SN = 'PRO=HASH_LOOKUP'
+	msk_prm_SN = msk_prm_SN .. ',HASHFLD="SEQ"'
+	msk_prm_SN = msk_prm_SN .. ',SOURCE="STREET_NUMBER"'
+	msk_prm_SN = msk_prm_SN .. ',REPLACE="STREET_NUMBER"'
+	If COUNTRY == "CHINA" Then
+		msk_prm_SN = msk_prm_SN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_CHINA"'
+	End
+	If COUNTRY == "GERMANY" Then
+		msk_prm_SN = msk_prm_SN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_GERMANY"'
+	End
+	If COUNTRY == "JAPAN" Then
+		msk_prm_SN = msk_prm_SN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_JAPAN"'
+	End
+	If COUNTRY == "TURKEY" Then
+		msk_prm_SN = msk_prm_SN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_TURKEY"'
+	End
+	If COUNTRY == "FRANCE" Then
+		msk_prm_SN = msk_prm_SN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_FRANCE"'
+	End
+	If COUNTRY == "OTHERS" Then
+		msk_prm_SN = msk_prm_SN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_OTHERS"'
+	End
+	If COUNTRY == "SWEDEN" Then
+		msk_prm_SN = msk_prm_SN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_SWEDEN"'
+	End
+	optim.print("Parms Are SN :  " .. msk_prm_SN )
+	msk_prm_SN = msk_prm_SN .. ',lib=MSS'
+	msk_prm_SN = msk_prm_SN .. ',conn=OPTDIRTEST,user=InfoSphereOptimSvc_DEV,pass=YourPassword'
+	msk_prm_SN = msk_prm_SN .. ',FLDDEF1=(NAME="STREET_NUMBER",DT=wvarchar_sz)'
+	msk_prm_SN = msk_prm_SN .. ',FLDDEF2=(NAME="STREET_NUMBER",DT=wvarchar_sz)'
+	msk_prm_SN = msk_prm_SN .. ',FLDDEF3=(NAME="SEQ",DT=int)'                
+	 
+End
+If src_col == "BUILDING_NAME" Then
+	msk_prm_BN = 'PRO=HASH_LOOKUP'
+	msk_prm_BN = msk_prm_BN .. ',HASHFLD="SEQ"'
+	msk_prm_BN = msk_prm_BN .. ',SOURCE="BUILDING_NAME"'
+	msk_prm_BN = msk_prm_BN .. ',REPLACE="BUILDING_NAME"'
+		If COUNTRY == "CHINA" Then
+		msk_prm_BN = msk_prm_BN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_CHINA"'
+	End
+	If COUNTRY == "OTHERS" Then
+		msk_prm_BN = msk_prm_BN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_OTHERS"'
+	End
+	If COUNTRY == "GERMANY" Then
+		msk_prm_BN = msk_prm_BN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_GERMANY"'
+	End
+	If COUNTRY == "JAPAN" Then
+		msk_prm_BN = msk_prm_BN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_JAPAN"'
+	End
+	If COUNTRY == "TURKEY" Then
+		msk_prm_BN = msk_prm_BN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_TURKEY"'
+	End
+	If COUNTRY == "FRANCE" Then
+		msk_prm_BN = msk_prm_BN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_FRANCE"'
+	End
+	If COUNTRY == "SWEDEN" Then
+		msk_prm_BN = msk_prm_BN .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_SWEDEN"'
+	End
+	optim.print("Parms Are BN :  " .. msk_prm_BN ) 
+	msk_prm_BN = msk_prm_BN .. ',lib=MSS'
+	msk_prm_BN = msk_prm_BN .. ',conn=OPTDIRTEST,user=InfoSphereOptimSvc_DEV,pass=YourPassword'
+	msk_prm_BN = msk_prm_BN .. ',FLDDEF1=(NAME="BUILDING_NAME",DT=wvarchar_sz)'
+	msk_prm_BN = msk_prm_BN .. ',FLDDEF2=(NAME="BUILDING_NAME",DT=wvarchar_sz)'
+	msk_prm_BN = msk_prm_BN .. ',FLDDEF3=(NAME="SEQ",DT=int)'   
+	             
+End
+If src_col == "CARE_OF" Then
+	msk_prm_CO = 'PRO=HASH_LOOKUP'
+	msk_prm_CO = msk_prm_CO .. ',HASHFLD="SEQ"'
+	msk_prm_CO = msk_prm_CO .. ',SOURCE="CARE_OF"'
+	msk_prm_CO = msk_prm_CO .. ',REPLACE="CARE_OF"'
+		If COUNTRY == "CHINA" Then
+		msk_prm_CO = msk_prm_CO .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_CHINA"'
+	End
+	If COUNTRY == "OTHERS" Then
+		msk_prm_CO = msk_prm_CO .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_OTHERS"'
+	End
+	If COUNTRY == "GERMANY" Then
+		msk_prm_CO = msk_prm_CO .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_GERMANY"'
+	End
+	If COUNTRY == "JAPAN" Then
+		msk_prm_CO = msk_prm_CO .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_JAPAN"'
+	End
+	If COUNTRY == "TURKEY" Then
+		msk_prm_CO = msk_prm_CO .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_TURKEY"'
+	End
+	If COUNTRY == "FRANCE" Then
+		msk_prm_CO = msk_prm_CO .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_FRANCE"'
+	End
+	If COUNTRY == "SWEDEN" Then
+		msk_prm_CO = msk_prm_CO .. ',id="InfoSphereOptimSvc_DEV.OPTIM_NAME_SWEDEN"'
+	End
+	optim.print("Parms Are CO :  " .. msk_prm_CO ) 
+	msk_prm_CO = msk_prm_CO .. ',lib=MSS'
+	msk_prm_CO = msk_prm_CO .. ',conn=OPTDIRTEST,user=InfoSphereOptimSvc_DEV,pass=YourPassword'
+	msk_prm_CO = msk_prm_CO .. ',FLDDEF1=(NAME="CARE_OF",DT=wvarchar_sz)'
+	msk_prm_CO = msk_prm_CO .. ',FLDDEF2=(NAME="CARE_OF",DT=wvarchar_sz)'
+	msk_prm_CO = msk_prm_CO .. ',FLDDEF3=(NAME="SEQ",DT=int)'   
+	             
+End
+
+End
+function cm_unload()
+Print("  *** End of Process ***")
+End
+function cm_starttable()
+Print("  FROM START Table " .. source.column.getname())
+End
+function cm_endtable()
+Print("  \nEnd of processing table")
+End
+function cm_transform()
+
+If src_col == "ALIAS_FIRST_NAME" Then
+	oldvalue_AFN = source.column.getvalue()
+	If  oldvalue_AFN == nil Then
+    	target.column.setvalue(oldvalue_AFN)
+	Else
+	mask_AFN_value = optim.mask(oldvalue_AFN,msk_prm_AFN)
+	target.column.setvalue(mask_AFN_value)
+    End
+End
+
+If src_col == "ALIAS_LAST_NAME" Then
+	oldvalue_ALN = source.column.getvalue()
+	If  oldvalue_ALN == nil Then
+    	target.column.setvalue(oldvalue_ALN)
+    Else
+	mask_ALN_value = optim.mask(oldvalue_ALN,msk_prm_ALN)
+	target.column.setvalue(mask_ALN_value)
+    End
+End
+If src_col == "EMAIL_ADDRESS" Then
+	oldvalue_EML = source.column.getvalue()
+	If  oldvalue_EML == nil Then
+    	target.column.setvalue(oldvalue_EML)
+	Else
+	mask_EML_value = optim.mask(oldvalue_EML,msk_prm_EML)
+	target.column.setvalue(mask_EML_value)
+    End
+End
+If src_col == "PHONE_NUMBER" Then
+  	oldvalue_PHN = source.column.getvalue()
+	If  oldvalue_PHN == nil Then
+    	target.column.setvalue(oldvalue_PHN)
+	Else
+		mask_PHN_value = optim.mask(oldvalue_PHN,msk_prm_PHN)
+		target.column.setvalue(mask_PHN_value)
+	End
+End
+If src_col == "STAFF_CARD_NO" Then
+	oldvalue_SCN = source.column.getvalue()
+    --optim.print(oldvalue_SCN)
+	If  oldvalue_SCN == nil Then
+    	target.column.setvalue(oldvalue_SCN)
+	Else
+		mask_SCN_value = optim.mask(oldvalue_SCN,msk_prm_SCN)
+		target.column.setvalue(mask_SCN_value)
+    End
+End
+
+If src_col == "LAST_NAME" Then
+	oldvalue_LN = source.column.getvalue()
+	If  oldvalue_LN == nil Then
+    	target.column.setvalue(oldvalue_LN)
+	Else
+	mask_LN_value = optim.mask(oldvalue_LN,msk_prm_LN)
+	target.column.setvalue(mask_LN_value)     
+    End
+End
+If src_col == "STREET_ADDRESS" Then
+	oldvalue_SA = source.column.getvalue()
+	If  oldvalue_SA == nil Then
+    	target.column.setvalue(oldvalue_SA)
+	Else
+	mask_SA_value = optim.mask(oldvalue_SA,msk_prm_SA)
+	target.column.setvalue(mask_SA_value)
+    End
+End
+If src_col == "STREET_NUMBER" Then
+	oldvalue_SN = source.column.getvalue()
+	If  oldvalue_SN == nil Then
+    	target.column.setvalue(oldvalue_SN)
+	Else
+	mask_SN_value = optim.mask(oldvalue_SN,msk_prm_SN)
+	target.column.setvalue(mask_SN_value)
+    End
+End
+If src_col == "BUILDING_NAME" Then
+	oldvalue_BN = source.column.getvalue()
+	If  oldvalue_BN == nil Then
+    	target.column.setvalue(oldvalue_BN)
+	Else
+	mask_BN_value = optim.mask(oldvalue_BN,msk_prm_BN)
+	target.column.setvalue(mask_BN_value)
+    End
+End
+If src_col == "CARE_OF" Then
+	oldvalue_CO = source.column.getvalue()
+	optim.print (msk_prm_CO)
+	If  oldvalue_CO == nil Then
+    	target.column.setvalue(oldvalue_CO)
+	Else
+	mask_CO_value = optim.mask(oldvalue_CO,msk_prm_CO)
+	target.column.setvalue(mask_CO_value)
+    End
+End
+
+End
